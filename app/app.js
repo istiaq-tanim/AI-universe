@@ -1,5 +1,4 @@
 // ;oad Api of AI Universe
-
 const loadApi = () => {
     fetch("https://openapi.programming-hero.com/api/ai/tools")
         .then(response => response.json())
@@ -15,10 +14,7 @@ const showApi = (data) => {
         processData(data.slice(0,6))
         document.getElementById("showAll").classList.remove("d-none");
     }
-   
-
 }
-
 const processData = (data) =>
 {
     const cardContainer = document.getElementById("card-container");
@@ -58,8 +54,6 @@ const processData = (data) =>
     cardContainer.appendChild(card);
     });
 }
-
-
 document.getElementById("show-btn").addEventListener("click",function(){
     fetch("https://openapi.programming-hero.com/api/ai/tools")
         .then(response => response.json())
