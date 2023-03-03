@@ -44,6 +44,7 @@ const processData = (data) => {
     </div>
     </div>
    `
+     
         cardContainer.appendChild(card);
         item.features.map((value) => {
             console.log(value)
@@ -76,20 +77,37 @@ const showDetails = (id) => {
 
 const showSingleDetails = (data) => {
     console.log(data)
-    const { pricing, description, features, integrations,image_link} = data
-    console.log(pricing)
+    const { pricing, description, features, integrations,image_link,input_output_examples,accuracy} = data
+    console.log(features,integrations)
     document.getElementById("card-1-title").innerText = description;
     if (pricing) {
-        document.getElementById("price-1").innerHTML = `<p class="px-3 pt-3 fw-semibold">${pricing[0].price == "No cost" || pricing[0].price == "0" ? "Free of Cost/Basic" : pricing[0].price} <span>${pricing[0].plan}</span></p>`
-        document.getElementById("price-2").innerHTML = `<p class="px-3 pt-3 fw-semibold">${pricing[1].price == "No cost" || pricing[1].price == "0" ? "Free of Cost/Basic" : pricing[1].price} <span>${pricing[1].plan}</span></p>`
-        document.getElementById("price-3").innerHTML = `<p class="px-3 pt-3 fw-semibold">${pricing[2].price == "No cost" ? "Free of Cost/Basic" : pricing[2].price.split(" ").slice(0, 2).join(" ")} <span>${pricing[2].plan}</span></p>`
+        document.getElementById("price-1").innerHTML = `<p class="px-3 pt-3 fw-semibold">${pricing[0].price} <br> <span>${pricing[0].plan}</span></p>`
+        document.getElementById("price-2").innerHTML = `<p class="px-3 pt-3 fw-semibold">${pricing[1].price} <br> <span>${pricing[1].plan}</span></p>`
+        document.getElementById("price-3").innerHTML = `<p class="px-3 pt-3 fw-semibold">${pricing[2].price.split(" ").slice(0, 2).join(" ")} <br> <span>${pricing[2].plan}</span></p>`
     }
 
     else
     {
         document.getElementById("price-1").innerHTML = `<p class="px-3 pt-3 fw-semibold">"Free of Cost/Basic" </p>`
-        document.getElementById("price-2").innerHTML = `<p class="px-3 pt-3 fw-semibold">"Free of Cost/Basic" </p>`
-        document.getElementById("price-3").innerHTML = `<p class="px-3 pt-3 fw-semibold">"Free of Cost/Basic" </p>`
+        document.getElementById("price-2").innerHTML = `<p class="px-3 pt-3 fw-semibold">"Free of Cost/Pro" </p>`
+        document.getElementById("price-3").innerHTML = `<p class="px-3 pt-3 fw-semibold">"Free of Cost/Enterprise" </p>`
+    }
+
+    const featuresList=document.getElementById("features-list")
+    featuresList.innerText="";
+    if(features)
+    {
+        for(let item in features)
+        {
+            const li = document.createElement("li");
+            li.innerHTML = `
+            ${features[item].feature_name}
+            `
+            featuresList.appendChild(li);
+        }
+    }
+    else {
+        featuresList.innerText = "No Data Found";
     }
 
     const integrationList = document.getElementById("integrations-list");
@@ -108,9 +126,13 @@ const showSingleDetails = (data) => {
     }
 
    document.getElementById("card-2").innerHTML=`
-   <img src="${image_link[0]}" class="card-img-top rounded-5 p-5" alt="...">
+   <p class="h3"><span class="badge rounded-pill text-bg-danger badges">${accuracy.score?accuracy.score*100+"%"+" accuracy":""}</span></p>
+   <img src="${image_link[0]}" class="card-img-top rounded-5 p-2">
+   <h5 class="text-center fw-bold">${input_output_examples?input_output_examples[0].input:"Can you give any example?"}</h5>
+   <p class="text-center p-1">${input_output_examples?input_output_examples[0].output:"No! Not Yet! Take a break!!!"}</p>
    `
 
 }
 
 
+//

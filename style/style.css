@@ -6,3 +6,10 @@ body
 {
     background-color: rgba(235, 85, 85, 0.05);
 }
+.badges
+{
+    position: absolute;
+    right:30px;
+    top: 25px;
+    width: 40%;
+}
