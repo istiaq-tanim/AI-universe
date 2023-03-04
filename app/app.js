@@ -1,7 +1,7 @@
 // ;oad Api of AI Universe
 
 let fetchData = [];
-const loadApi = () => {
+const  loadApi = () => {
     fetch("https://openapi.programming-hero.com/api/ai/tools")
         .then(response => response.json())
         .then(data => {
@@ -10,9 +10,26 @@ const loadApi = () => {
         });
     toggle(true);
 }
+
+// async function loadApi() {
+//     toggle(true);
+//     try {
+//         const response = await fetch("https://openapi.programming-hero.com/api/ai/tools");
+//         const data = await response.json();
+//         showApi(data.data.tools)
+//         fetchData = data.data.tools;
+//         listData(data);
+//     }
+    
+//     catch (error) 
+//     {
+//         console.log(error);
+//     }
+   
+// }
+
 //show data
 const showApi = (data) => {
-
 
     if (data.length > 6) {
         processData(data.slice(0, 6))
@@ -61,7 +78,7 @@ const processData = (data) => {
         })
 
     });
-    toggle(false)
+    toggle(false);
 }
 document.getElementById("show-btn").addEventListener("click", function () {
     fetch("https://openapi.programming-hero.com/api/ai/tools")
@@ -70,11 +87,17 @@ document.getElementById("show-btn").addEventListener("click", function () {
     document.getElementById("showAll").classList.add("d-none");
 })
 
-const showDetails = (id) => {
-    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
-    fetch(url)
-        .then(res => res.json())
-        .then(data => showSingleDetails(data.data))
+async function showDetails(id) {
+   const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        showSingleDetails(data.data)
+    }
+    catch (error) 
+    {
+        console.log(error);
+    }
 }
 
 const showSingleDetails = (data) => {
@@ -145,5 +168,7 @@ const toggle = (progress) => {
 const shortByDate = () => {
     // console.log(fetchData[0].published_in)
     let result = fetchData.sort((a, b) => new Date(a.published_in) - new Date(b.published_in))
-    result.forEach((item) => console.log(item.published_in))
+    processData(result);
+    document.getElementById("showAll").classList.add("d-none");
+
 }
