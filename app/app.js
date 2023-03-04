@@ -106,7 +106,8 @@ const showSingleDetails = (data) => {
     }
     const integrationList = document.getElementById("integrations-list");
     integrationList.innerText = "";
-    if (integrations) {
+    if (integrations) 
+    {
         for (const integration of integrations) {
             const li = document.createElement("li");
             li.innerHTML = `
