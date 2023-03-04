@@ -1,15 +1,12 @@
-body
-{
-    font-family: 'Work Sans', sans-serif;
+body {
+  font-family: "Work Sans", sans-serif;
 }
-.card-1
-{
-    background-color: rgba(235, 85, 85, 0.05);
+.card-1 {
+  background-color: rgba(235, 85, 85, 0.05);
 }
-.badges
-{
-    position: absolute;
-    right:30px;
-    top: 20px;
-    width: 40%;
+.badges {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+  width: 40%;
 }

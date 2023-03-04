@@ -1,5 +1,4 @@
 // ;oad Api of AI Universe
-
 let fetchData = [];
 const  loadApi = () => {
     fetch("https://openapi.programming-hero.com/api/ai/tools")
@@ -10,15 +9,12 @@ const  loadApi = () => {
         });
     toggle(true);
 }
-
 //show data
 const showApi = (data) => {
-
     if (data.length > 6) {
         processData(data.slice(0, 6))
         document.getElementById("showAll").classList.remove("d-none");
-    }
-    
+    }   
 }
 const processData = (data) => {
     const cardContainer = document.getElementById("card-container");
@@ -39,7 +35,6 @@ const processData = (data) => {
     <div>
       <h5 class="fw-bold">${name}</h5>
     </div>
-
     <div class="d-flex justify-content-between">
        <div class="d-flex gap-2">
        <i class="fa-solid fa-calendar-days pt-1"></i>
@@ -60,7 +55,6 @@ const processData = (data) => {
         `
             document.getElementById(item.id).appendChild(li);
         })
-
     });
     toggle(false);
 }
@@ -69,7 +63,6 @@ document.getElementById("show-btn").addEventListener("click", function () {
     processData(fetchData)   
     document.getElementById("showAll").classList.add("d-none");
 })
-
 async function showDetails(id) {
    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
     try {
@@ -82,7 +75,6 @@ async function showDetails(id) {
         console.log(error);
     }
 }
-
 const showSingleDetails = (data) => {
     console.log(data)
     const { pricing, description, features, integrations, image_link, input_output_examples, accuracy } = data
@@ -93,13 +85,11 @@ const showSingleDetails = (data) => {
         document.getElementById("price-2").innerHTML = `<p class="px-3 pt-3 fw-semibold">${pricing[1].price} <br> <span>${pricing[1].plan}</span></p>`
         document.getElementById("price-3").innerHTML = `<p class="px-3 pt-3 fw-semibold">${pricing[2].price.split(" ").slice(0, 2).join(" ")} <br> <span>${pricing[2].plan}</span></p>`
     }
-
     else {
         document.getElementById("price-1").innerHTML = `<p class="px-3 pt-3 fw-semibold">"Free of Cost/Basic" </p>`
         document.getElementById("price-2").innerHTML = `<p class="px-3 pt-3 fw-semibold">"Free of Cost/Pro" </p>`
         document.getElementById("price-3").innerHTML = `<p class="px-3 pt-3 fw-semibold">"Free of Cost/Enterprise" </p>`
     }
-
     const featuresList = document.getElementById("features-list")
     featuresList.innerText = "";
     if (features) {
@@ -114,7 +104,6 @@ const showSingleDetails = (data) => {
     else {
         featuresList.innerText = "No Data Found";
     }
-
     const integrationList = document.getElementById("integrations-list");
     integrationList.innerText = "";
     if (integrations) {
@@ -129,7 +118,6 @@ const showSingleDetails = (data) => {
     else {
         integrationList.innerText = "No Data Found";
     }
-
     document.getElementById("card-2").innerHTML = `
    <p class="h3"><span class="badge rounded-pill text-bg-danger badges">${accuracy.score ? accuracy.score * 100 + "%" + " accuracy" : ""}</span></p>
    <img src="${image_link[0]}" class="card-img-top rounded-5 p-2">
@@ -137,8 +125,6 @@ const showSingleDetails = (data) => {
    <p class="text-center p-1">${input_output_examples ? input_output_examples[0].output : "No! Not Yet! Take a break!!!"}</p>
    `
 }
-
-
 const toggle = (progress) => {
     if (progress) {
         document.getElementById("spinner").classList.remove("d-none");
@@ -147,11 +133,8 @@ const toggle = (progress) => {
         document.getElementById("spinner").classList.add("d-none")
     }
 }
-
 const shortByDate = () => {
-   
     let result = fetchData.sort((a, b) => new Date(b.published_in) - new Date(a.published_in))
-
     if(document.getElementById("showAll").classList.contains("d-none"))
     {
         processData(result);
@@ -162,6 +145,4 @@ const shortByDate = () => {
         processData(result.slice(0,6));
         document.getElementById("showAll").classList.remove("d-none");
     }
-    
-
 }
