@@ -11,23 +11,6 @@ const  loadApi = () => {
     toggle(true);
 }
 
-// async function loadApi() {
-//     toggle(true);
-//     try {
-//         const response = await fetch("https://openapi.programming-hero.com/api/ai/tools");
-//         const data = await response.json();
-//         showApi(data.data.tools)
-//         fetchData = data.data.tools;
-//         listData(data);
-//     }
-    
-//     catch (error) 
-//     {
-//         console.log(error);
-//     }
-   
-// }
-
 //show data
 const showApi = (data) => {
 
@@ -35,6 +18,7 @@ const showApi = (data) => {
         processData(data.slice(0, 6))
         document.getElementById("showAll").classList.remove("d-none");
     }
+    
 }
 const processData = (data) => {
     const cardContainer = document.getElementById("card-container");
@@ -81,9 +65,8 @@ const processData = (data) => {
     toggle(false);
 }
 document.getElementById("show-btn").addEventListener("click", function () {
-    fetch("https://openapi.programming-hero.com/api/ai/tools")
-        .then(response => response.json())
-        .then(data => processData(data.data.tools));
+
+    processData(fetchData)   
     document.getElementById("showAll").classList.add("d-none");
 })
 
@@ -166,9 +149,19 @@ const toggle = (progress) => {
 }
 
 const shortByDate = () => {
-    // console.log(fetchData[0].published_in)
-    let result = fetchData.sort((a, b) => new Date(a.published_in) - new Date(b.published_in))
-    processData(result);
-    document.getElementById("showAll").classList.add("d-none");
+   
+    let result = fetchData.sort((a, b) => new Date(b.published_in) - new Date(a.published_in))
+
+    if(document.getElementById("showAll").classList.contains("d-none"))
+    {
+        processData(result);
+        document.getElementById("showAll").classList.add("d-none");
+    }
+    else
+    {
+        processData(result.slice(0,6));
+        document.getElementById("showAll").classList.remove("d-none");
+    }
+    
 
 }
